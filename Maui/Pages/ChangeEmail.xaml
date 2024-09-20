@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Maui.Pages.ChangeEmail"
+             Title=""
+             xmlns:local="clr-namespace:Maui.ViewModels">
+    
+    <ContentPage.BindingContext>
+        <local:ChangeEmailViewModel/>
+    </ContentPage.BindingContext>
+
+    <VerticalStackLayout >
+
+        <Label HorizontalOptions="Center" FontAttributes="Bold" Text="Change email" FontSize="Header"/>
+
+        <VerticalStackLayout VerticalOptions="Start" HorizontalOptions="Start" Margin="45,50,0,0">
+            <Label Text="Current email:" />
+            <Entry Text="{Binding Email.Value}" BackgroundColor="AliceBlue" TextColor="Black" WidthRequest="300"/>
+            <Label Text="{Binding Email.Error}" IsVisible="{Binding Email.HasError}" TextColor="red"/>
+
+        </VerticalStackLayout>
+
+        <HorizontalStackLayout  Margin="45,30,0,0" Spacing="30">
+            <Button Text="Save" 
+                    BackgroundColor="#548F20" 
+                    TextColor="White"
+                    WidthRequest="150"
+                    HorizontalOptions="Start"
+                    IsEnabled="{Binding ButtonEnabled.Value}"
+                    Command="{Binding ChangeEmailCommand}"/>
+
+            <Button Text="Cancel" 
+                    BackgroundColor="Maroon" 
+                    TextColor="White"
+                    WidthRequest="120"
+                    Command="{Binding CancelCommand}"/>
+        </HorizontalStackLayout>
+
+        <Label Text="{Binding SuccessMessage.Value}" 
+               HorizontalOptions="Center" 
+               Margin="0,40,0,0" 
+               FontSize="18" 
+               FontAttributes="Bold" 
+               TextColor="Green"/>
+
+        <Label Text="This page allows you to change the email  address for receiving notifications"
+             FontSize="12" VerticalOptions="Center" HorizontalTextAlignment="Center" TextColor="Gray"/>
+
+    </VerticalStackLayout>
+</ContentPage>

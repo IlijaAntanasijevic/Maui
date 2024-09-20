@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Maui.Pages.AddProductPage"
+             Title="Add new"
+             xmlns:local="clr-namespace:Maui.ViewModels">
+
+    <ContentPage.BindingContext>
+        <local:AddProductViewModel/>
+    </ContentPage.BindingContext>
+
+    <ScrollView Padding="20">
+        <VerticalStackLayout>
+            <Image
+                Source="logo.png"
+                Aspect="AspectFit" 
+                WidthRequest="250" 
+                Margin="0,30"
+                HorizontalOptions="Center"/>
+
+            <Grid ColumnDefinitions="*, *" 
+                  RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto"
+                  RowSpacing="15"
+                  ColumnSpacing="20"
+                  WidthRequest="300"
+                  HorizontalOptions="Center"
+                  VerticalOptions="Start"
+                  Margin="0,0,0,0">
+
+                <!-- Name -->
+                <VerticalStackLayout IsVisible="{Binding Test}" Grid.Row="0" Grid.ColumnSpan="2" Margin="0,10">
+                    <Label Text="Name"/>
+                    <Entry Text="{Binding Name.Value}" BackgroundColor="AliceBlue" TextColor="Black"/>
+                    <Label Text="{Binding Name.Error}" IsVisible="{Binding Name.HasError}" TextColor="Red"/>
+                </VerticalStackLayout>
+
+                <!-- Price -->
+                <VerticalStackLayout Grid.Row="1" Grid.Column="0" Margin="0,10">
+                    <Label Text="Price($)"/>
+                    <Entry Text="{Binding Price.Value}" BackgroundColor="AliceBlue" TextColor="Black"/>
+                    <Label Text="{Binding Price.Error}" IsVisible="{Binding Price.HasError}" TextColor="Red"/>
+                </VerticalStackLayout>
+
+                <!-- Total Quantity -->
+                <VerticalStackLayout Grid.Row="1" Grid.Column="1" Margin="0,10">
+                    <Label Text="Total quantity"/>
+                    <Entry Text="{Binding TotalQuantity.Value}" BackgroundColor="AliceBlue" TextColor="Black"/>
+                    <Label Text="{Binding TotalQuantity.Error}" IsVisible="{Binding TotalQuantity.HasError}" TextColor="Red"/>
+                </VerticalStackLayout>
+
+                <!-- Description -->
+                <VerticalStackLayout Grid.Row="2" Grid.ColumnSpan="2" Margin="0,10">
+                    <Label Text="Description"/>
+                    <Editor Text="{Binding Details.Value}" BackgroundColor="AliceBlue" TextColor="Black" HeightRequest="150"/>
+                    <Label Text="{Binding Details.Error}" IsVisible="{Binding Details.HasError}" TextColor="Red"/>
+                </VerticalStackLayout>
+
+                <!-- Add Image Button -->
+                <VerticalStackLayout Grid.Row="3" Grid.ColumnSpan="2" Margin="0,10">
+                    <Button Text="Add Image" 
+                            TextColor="White" 
+                            BackgroundColor="Maroon"
+                            Command="{Binding AddImageCommand}"/>
+                    <Label Text="{Binding FileSource.Error}" IsVisible="{Binding FileSource.HasError}" TextColor="Red"/>
+                </VerticalStackLayout>
+
+                <!-- Image Placeholder -->
+                <VerticalStackLayout IsVisible="{Binding ShowPreviewImage.Value}" BackgroundColor="AliceBlue" Grid.Row="4" Grid.ColumnSpan="2" Margin="0,10">
+                    <Image Source="{Binding FileSource.Value}" 
+                           WidthRequest="300"
+                           HeightRequest="300"
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+
+                <!-- Save Button -->
+                <VerticalStackLayout Grid.Row="5" Grid.ColumnSpan="2" Margin="0,10">
+                    <Button Command="{Binding AddProductCommand}" 
+                 IsEnabled="{Binding ButtonEnabled.Value}"
+                 Text="Save" 
+                 TextColor="White" 
+                 BackgroundColor="DarkGreen"/>
+                </VerticalStackLayout>
+
+                <Label Text="{Binding ErrorMessage.Value}" IsVisible="{Binding ErrorMessage.HasError}" TextColor="Red"/>
+
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

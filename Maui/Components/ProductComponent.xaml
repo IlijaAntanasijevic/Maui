@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Maui.Components.ProductComponent"
+             Title="ProductComponent"
+             x:Name="Self">
+    <VerticalStackLayout BindingContext="{x:Reference Self}">
+
+        <Image Source="{Binding ImagePath}" HeightRequest="150"/>
+
+        <HorizontalStackLayout>
+            <Label Text="{Binding Name}"/>
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout>
+            <Label Text="Price($)"/>
+            <Label Text="{Binding Price}"/>
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout>
+            <Label Text="Total quantity:"/>
+            <Label Text="{Binding TotalQuantity}"/>
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout>
+            <Label Text="Total quantity:"/>
+            <Label Text="{Binding Id}"/>
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout>
+            <Button Text="View" Clicked="Button_Clicked" Margin="5" WidthRequest="100" FontSize="Micro"/>
+        </HorizontalStackLayout>
+
+    </VerticalStackLayout>
+</ContentPage>

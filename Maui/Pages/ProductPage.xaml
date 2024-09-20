@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Maui.Pages.ProductPage"
+             Title="{Binding Product.Value.Name}">
+
+    <VerticalStackLayout>
+
+        <Image Source="{Binding Product.Value.Path}"  WidthRequest="250" Margin="15"/>
+
+
+
+            <!--<Label 
+            Text="{Binding Product.Value.Name}" 
+            FontAttributes="Bold" 
+            FontSize="Large" 
+            HorizontalOptions="Center" />-->
+            
+            
+            <!-- Price label -->
+            <Label 
+            Text="{Binding Product.Value.Price, StringFormat='Price: {0:C}'}" 
+            FontSize="Medium" 
+            VerticalOptions="Start"    
+            HorizontalOptions="Start" Margin="30,30,0,0" />
+
+
+
+        <Label 
+             Text="{Binding Product.Value.TotalQuantity, StringFormat='Total quantity: {0}'}" 
+             HorizontalOptions="Start"
+             FontSize="Subtitle" 
+             Padding="30,0"
+             Margin="0,30,0,0" />
+
+        <Label 
+            Text="{Binding Product.Value.Details}" 
+            FontSize="16" 
+            HorizontalOptions="Center"
+            Padding="30,0"
+            Margin="0,30,0,0" />
+
+        <HorizontalStackLayout Margin="0,40,0,0" HorizontalOptions="Center" Spacing="20">
+
+            <DatePicker MinimumDate="{Binding StartDate.Value}"
+                        Date="{Binding StartDate.Value}" />
+
+            <DatePicker MinimumDate="{Binding EndDate.Value}"
+                        Date="{Binding EndDate.Value}" />
+
+            <Entry Placeholder="Quantity" Text="{Binding Quantity.Value}" WidthRequest="80"/>
+
+        </HorizontalStackLayout>
+
+        <Button 
+            Command="{Binding OrderCommand}"
+            IsEnabled="{Binding ButtonEnabled.Value}" 
+            Text="Order" WidthRequest="230" 
+            Margin="0,30,0,25" 
+            BackgroundColor="Maroon" 
+            TextColor="White"/>
+        
+        <!-- Quantity error -->
+        <Label HorizontalOptions="Center" 
+               Text="{Binding Quantity.Error}" 
+               IsVisible="{Binding Quantity.HasError}"
+               TextColor="Red"/>
+
+        <Label TextColor="Green" 
+               Text="{Binding OrderMessage.Value}" 
+               HorizontalOptions="Center"
+               FontAttributes="Bold"
+               IsVisible="{Binding OrderMessage.Value}" />
+
+        <!-- Server error -->
+        <Label HorizontalOptions="Center" 
+         Text="{Binding OrderMessage.Error}" 
+         IsVisible="{Binding OrderMessage.HasError}"
+         TextColor="Red"/>
+    </VerticalStackLayout>
+</ContentPage>

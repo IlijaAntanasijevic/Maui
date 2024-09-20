@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Maui.Pages.LoginPage"
+             Title="LoginPage"
+             xmlns:local="clr-namespace:Maui.ViewModels">
+    
+    <ContentPage.BindingContext>
+        <local:LoginViewModel/>
+    </ContentPage.BindingContext>
+    
+   <ScrollView>
+      <VerticalStackLayout Padding="30, 0" Spacing="10">
+
+            <Image
+             Source="logo.png"
+             HeightRequest="185"
+             Aspect="AspectFit" 
+             WidthRequest="300" />
+
+                <Label Text="Username:"/>
+                <Entry Text="{Binding Username.Value}" BackgroundColor="AliceBlue" TextColor="Black"/>
+                <Label Text="{Binding Username.Error}" IsVisible="{Binding Username.HasError}" TextColor="Red"/>
+
+                <Label Text="Password"/>
+                <Entry Text="{Binding Password.Value}" IsPassword="True" BackgroundColor="AliceBlue" TextColor="Black"/>
+                <Label Text="{Binding Password.Error}" IsVisible="{Binding Password.HasError}" TextColor="red"/>
+
+                <Button Text="Login"
+                        IsEnabled="{Binding ButtonEnabled.Value}"
+                        Command="{Binding LoginCommand}"
+                        HorizontalOptions="Fill"
+                        Margin="0,20,0,5"
+                        BackgroundColor="Maroon" 
+                        TextColor="White"/>
+
+
+            <Label x:Name="SuccessMessage" 
+                   TextColor="Green" 
+                   Text="Registration successful! Please login." 
+                   IsVisible="{Binding IsRegistration.Value}" />
+          
+            <Label Text="Invalid credentials." IsVisible="{Binding InvalidCredentials.Value}" TextColor="red"/>
+
+            <HorizontalStackLayout IsVisible="{Binding ShowRegistrationOption.Value}" 
+                                   Spacing="5"
+                                   HorizontalOptions="Center">
+                
+                <Label Text="Don't have an account?" >
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding RegisterCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
+
+                <Label Text="Register here" TextColor="Blue">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding RegisterCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </HorizontalStackLayout>
+        
+      </VerticalStackLayout>
+   </ScrollView>
+</ContentPage>

@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Maui.Pages.Admin"
+             Title="Admin"
+              xmlns:local="clr-namespace:Maui.ViewModels">
+
+    <!--<ContentPage.BindingContext>
+        <local:AdminViewModel/>
+    </ContentPage.BindingContext>-->
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20">
+
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                <Button Text="Add new product"
+                        Clicked="Add"
+                        BackgroundColor="ForestGreen" 
+                        TextColor="White" 
+                        Margin="0,10,0,35"/>
+                
+                <Button Text="Change receiving email" 
+                        Clicked="ChangeEmail" 
+                        BackgroundColor="DarkSlateGray"
+                        TextColor="White"
+                        Margin="0,10,0,35"/>
+            </HorizontalStackLayout>
+
+            <CollectionView ItemsSource="{Binding Products}" HorizontalOptions="Center" VerticalOptions="Center">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="Transparent" 
+                         BackgroundColor="Gray"        
+                         WidthRequest="250" 
+                         HeightRequest="200"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               CornerRadius="0">
+
+                            <Grid ColumnDefinitions="*, *" 
+                                  RowDefinitions="Auto, Auto, Auto" 
+                                  RowSpacing="5"
+                                  WidthRequest="200"
+                                  HorizontalOptions="Center"
+                                  VerticalOptions="Center">
+
+                                <Image Grid.Row="0" 
+                                 Grid.Column="0"
+                                 Source="{Binding Path}" />
+
+
+                                <Label Grid.Row="1" 
+                                 Grid.Column="0"
+                                 Text="{Binding Name}" 
+                                 FontAttributes="Bold" 
+                                 HorizontalOptions="Center" />
+
+                                <Button Text="Edit"  
+                                  Grid.Row="2" 
+                                  Grid.Column="0"  
+                                  HorizontalOptions="Fill"
+                                  Margin="0,20,0,0"
+                                  BackgroundColor="Maroon"
+                                  TextColor="White"
+                                  Clicked="Edit"
+                                  CommandParameter="{Binding Id}"/>
+                            </Grid>
+                        </Frame>
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" 
+                                     Span="2" 
+                                     HorizontalItemSpacing="10"
+                                     VerticalItemSpacing="10"/>
+                </CollectionView.ItemsLayout>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

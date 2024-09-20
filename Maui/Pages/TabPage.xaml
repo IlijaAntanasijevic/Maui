@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Maui.Pages.TabPage"
+             xmlns:local="clr-namespace:Maui.Pages">
+
+    <local:ProductsPage></local:ProductsPage>
+    <local:Admin></local:Admin>
+    <local:Logout Loaded="Logout_Loaded"></local:Logout>
+
+</TabbedPage>

@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Maui.Pages.RegisterPage"
+             xmlns:local="clr-namespace:Maui.ViewModels">
+    <ContentPage.BindingContext>
+        <local:RegisterViewModel/>
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="30" >
+
+            <VerticalStackLayout  Spacing="10">
+                <Label
+                 Text="REGISTER"
+                 Style="{StaticResource Headline}"
+                 FontSize="Header"
+                 FontFamily="OpenSans-Semibold"/>
+
+                <Label Text="Username:"/>
+                <Entry Text="{Binding Username.Value}" BackgroundColor="AliceBlue" TextColor="Black"/>
+                <Label Text="{Binding Username.Error}" IsVisible="{Binding Username.HasError}" TextColor="Red"/>
+
+                <Label Text="Password"/>
+                <Entry Text="{Binding Password.Value}" IsPassword="True" BackgroundColor="AliceBlue" TextColor="Black"/>
+                <Label Text="{Binding Password.Error}" IsVisible="{Binding Password.HasError}" TextColor="red"/>
+
+                <Label Text="Email"/>
+                <Entry Text="{Binding Email.Value}" BackgroundColor="AliceBlue" TextColor="Black"/>
+                <Label Text="{Binding Email.Error}" IsVisible="{Binding Email.HasError}" TextColor="red"/>
+
+                <Label Text="Phone"/>
+                <Entry Text="{Binding Phone.Value}" Keyboard="Numeric" BackgroundColor="AliceBlue" TextColor="Black"/>
+                <Label Text="{Binding Phone.Error}" IsVisible="{Binding Phone.HasError}" TextColor="red"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="10" HorizontalOptions="Fill" Margin="0,40,0,0">
+                <Button Text="Register"
+                        IsEnabled="{Binding ButtonEnabled.Value}"
+                        Command="{Binding RegisterCommand}"
+                        BackgroundColor="Gray"
+                        TextColor="White"/>
+
+                <Button Text="Login"
+                        Clicked="Button_Clicked"
+                        BackgroundColor="Maroon"
+                        TextColor="White"/>
+                
+                
+            </VerticalStackLayout>
+
+            <Label VerticalOptions="Center" Text="{Binding ServerError.Value}" IsVisible="{Binding ServerError.HasError}" TextColor="red"/>
+
+
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
