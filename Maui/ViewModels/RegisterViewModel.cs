@@ -26,13 +26,12 @@ public class RegisterViewModel
         Password.OnChange = Validate;
         Email.OnChange = Validate;
         Phone.OnChange = Validate;
-
     }
     
     public ICommand RegisterCommand { get; }
 
     private void Validate()
-    {
+   {
         var validator = new RegisterValidator();
 
         var result = validator.Validate(this);

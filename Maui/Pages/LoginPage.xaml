@@ -48,7 +48,7 @@
                 
                 <Label Text="Don't have an account?" >
                     <Label.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding RegisterCommand}" />
+                        <TapGestureRecognizer  Command="{Binding RegisterCommand}" />
                     </Label.GestureRecognizers>
                 </Label>
 

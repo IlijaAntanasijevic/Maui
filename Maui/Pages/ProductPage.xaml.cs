@@ -6,14 +6,14 @@ namespace Maui.Pages;
 
 public partial class ProductPage : ContentPage
 {
-    public ProductPage(int productId)
-	{
-		InitializeComponent();
+    private readonly ProductViewModel _viewModel;
+    public ProductPage(ProductViewModel viewModel, int productId)
+    {
+        InitializeComponent();
+        _viewModel = viewModel;
 
-        var viewModel = new ProductViewModel();
-        viewModel.LoadProduct(productId);
-
-        this.BindingContext = viewModel;
+        _viewModel.LoadProduct(productId);
+        BindingContext = _viewModel;
     }
 
 }

@@ -70,7 +70,7 @@ namespace Maui.ViewModels
                 Email.Error = "Email is not valid";
                 return;
             }
-
+            ButtonEnabled.Value = false;
             var email = Email.Value;
 
             RestRequest request = new RestRequest("admin/changeEmail", Method.Post);

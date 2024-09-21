@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Maui.Services.Implementation;
+using Maui.Services.Interfaces;
+using Maui.ViewModels;
+using Microsoft.Extensions.Logging;
 
 namespace Maui
 {
@@ -7,6 +10,7 @@ namespace Maui
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
+
             builder
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts =>
@@ -15,8 +19,15 @@ namespace Maui
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            builder.Services.AddTransient<IProductService, ProductService>();
+            builder.Services.AddTransient<IOrderService, OrderService>();
+            builder.Services.AddTransient<ProductViewModel>();
+            builder.Services.AddTransient<EditProductViewModel>();
+            builder.Services.AddTransient<LoginViewModel>();
+            builder.Services.AddTransient<RegisterViewModel>();
+
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();

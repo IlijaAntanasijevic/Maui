@@ -26,13 +26,11 @@ namespace Maui.ViewModels
 
         //private static bool isRegistartion { get; set; } = false;
 
-        public bool IsAdmin { get; set; }
-
         public LoginViewModel()
         {
             LoginCommand = new Command(Login);
             RegisterCommand = new Command(RegisterPage);
-            ButtonEnabled.Value = true;
+            ButtonEnabled.Value = false;
             IsRegistration.Value = Utility.IsRegistration;
             ShowRegistrationOption.Value = !Utility.IsRegistration;
 
@@ -41,11 +39,6 @@ namespace Maui.ViewModels
 
             //Username.Value = "CPO AG";
             //Password.Value = "cpoag";
-
-            Username.Value = "iksa";
-            Password.Value = "ilija123";
-
-
         }
 
         private void Validate()
@@ -87,7 +80,6 @@ namespace Maui.ViewModels
             {
                 await SecureStorage.Default.SetAsync("token", response.Data.Token);
 
-                IsAdmin = SecureStorage.Default.GetUser().IsAdmin;
                 InvalidCredentials.Value = false;
 
                 App.Current.MainPage = new NavigationPage(new TabPage());

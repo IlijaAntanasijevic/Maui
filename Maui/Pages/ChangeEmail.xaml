@@ -29,7 +29,7 @@
                     IsEnabled="{Binding ButtonEnabled.Value}"
                     Command="{Binding ChangeEmailCommand}"/>
 
-            <Button Text="Cancel" 
+            <Button Text="Back" 
                     BackgroundColor="Maroon" 
                     TextColor="White"
                     WidthRequest="120"

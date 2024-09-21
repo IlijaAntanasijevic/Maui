@@ -28,7 +28,10 @@ public partial class Admin : ContentPage
     {
         var button = sender as Button;
         var productId = (int)button.CommandParameter;
-        await Navigation.PushAsync(new NavigationPage(new EditProductPage(productId)));
+
+        //await Navigation.PushAsync(new NavigationPage(new EditProductPage(productId)));
+        var productPage = ActivatorUtilities.CreateInstance<EditProductPage>(App.Services, productId);
+        await Navigation.PushAsync(productPage);
     }
 
     private async void ChangeEmail(object sender, EventArgs e)
