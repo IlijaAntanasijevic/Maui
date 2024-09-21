@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Maui.DTO;
+using Maui.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,6 +29,23 @@ namespace Maui.Common
             }
 
             return null;
-        } 
+        }
+        
+        public static string SetImagePath(this string imagePath)
+        {
+           return Api.BaseImageUrl + imagePath;
+        }
+
+        public static void SetProductData(this ProductFormViewModel viewModel, SingleProductDto product)
+        {
+            viewModel.Product.Value = product;
+            viewModel.Name.Value = product.Name;
+            viewModel.Price.Value = product.Price;
+            viewModel.TotalQuantity.Value = product.TotalQuantity;
+            viewModel.Details.Value = product.Details;
+            viewModel.FileSource.Value = "/";
+            viewModel.Product.Value.Id = product.Id;
+
+        }
     }
 }

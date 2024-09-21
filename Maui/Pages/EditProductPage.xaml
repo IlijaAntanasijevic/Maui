@@ -64,6 +64,9 @@
                              Text="Delete" 
                              TextColor="White" 
                              BackgroundColor="Red"/>
+
+                    <Label Text="{Binding Product.Error}" HorizontalOptions="Center" IsVisible="{Binding Product.HasError}" TextColor="Red"/>
+
                 </VerticalStackLayout>
 
             </Grid>

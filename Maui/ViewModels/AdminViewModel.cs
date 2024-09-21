@@ -16,7 +16,6 @@ namespace Maui.ViewModels
     
     public class AdminViewModel
     {
-     
         public ObservableCollection<ProductDto> Products { get; set; } = new ObservableCollection<ProductDto>();
 
         public AdminViewModel()

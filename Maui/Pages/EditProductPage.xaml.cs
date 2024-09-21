@@ -4,14 +4,13 @@ namespace Maui.Pages;
 
 public partial class EditProductPage : ContentPage
 {
-	public EditProductPage(int productId)
+    private readonly EditProductViewModel _viewModel;
+    public EditProductPage(EditProductViewModel viewModel, int productId)
 	{
 		InitializeComponent();
 
-
-        var viewModel = new EditProductViewModel();
-        viewModel.LoadProduct(productId);
-
-        this.BindingContext = viewModel;
+        _viewModel = viewModel;
+        _viewModel.LoadProduct(productId);
+        BindingContext = _viewModel;
     }
 }

@@ -1,19 +1,17 @@
 ﻿using Maui.Common;
 using Maui.DTO;
+using Maui.Services.Interfaces;
 using RestSharp;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Maui.ViewModels
 {
-    public class ProductViewModel
+    public class ProductViewModel //: IProductService
     {
         //public MProp<int> Id { get; set; } = new MProp<int>();
+
+        private readonly IProductService _productService;
+        private readonly IOrderService _orderService;
 
         public MProp<SingleProductDto> Product { get; set; } = new MProp<SingleProductDto>();
         public MProp<DateTime> StartDate { get; set; } = new MProp<DateTime>();
@@ -22,7 +20,16 @@ namespace Maui.ViewModels
         public MProp<bool> ButtonEnabled { get; set; } = new MProp<bool>();
         public MProp<string> OrderMessage { get; set; } = new MProp<string>();
 
-        public ProductViewModel()
+        public ProductViewModel(IProductService productService, IOrderService orderService)
+        {
+
+            _productService = productService;
+
+            InitializeViewModel();
+            _orderService = orderService;
+        }
+
+        private void InitializeViewModel()
         {
             StartDate.Value = DateTime.Now;
             EndDate.Value = DateTime.Now.AddDays(1);
@@ -52,104 +59,84 @@ namespace Maui.ViewModels
             }
         }
 
-        public Command OrderCommand { get; }
+        public Command OrderCommand { get; set; }
 
-        private void Order()
+        private async void Order()
         {
             var user = SecureStorage.Default.GetUser();
-
             if(user.IsAdmin)
             {
                 OrderMessage.Error = "Admin can not order product!";
                 return;
             }
-            var isValid = CheckProductAvailability();
+
+            var isValid = await CheckProductAvailability();
             if (!isValid)
                 return;
-            //ButtonEnabled.Value = false;
 
-            var startDate = StartDate.Value;
-            var endDate = EndDate.Value;
-            var quantity = Quantity.Value;
-            var id = Product.Value.Id;
-            var email = user.Email;
-            var phone = user.Phone;
+            ButtonEnabled.Value = false;
 
-            var request = new RestRequest("orders", Method.Post);
-            request.AddJsonBody(new 
-            { 
-                startDate, 
-                endDate, 
-                quantity, 
-                email,
-                phone,
-                id, 
-                product = Product.Value
-            });
+            var orderRequest = new OrderRequestDto
+            {
+                StartDate = StartDate.Value,
+                EndDate = EndDate.Value,
+                Quantity = Quantity.Value,
+                Email = user.Email,
+                Phone = user.Phone,
+                Product = Product.Value
+            };
 
-            RestResponse<TokenDto> response = Api.Client.Execute<TokenDto>(request);
+            bool isOrdered = await _orderService.PlaceOrder(orderRequest);
 
-            if (response.IsSuccessful)
+            if (isOrdered)
             {
                 OrderMessage.Value = "You have successfully ordered, please check your email!";
                 OrderMessage.Error = null;
             }
             else
             {
-                OrderMessage.Error = "Server error! Please try again";
+                OrderMessage.Error = "Server error! Please try again.";
             }
         }
 
-        private bool CheckProductAvailability()
+        private async Task<bool> CheckProductAvailability()
         {
-            var startDate = StartDate.Value;
-            var endDate = EndDate.Value;
-            var quantity = Quantity.Value;
-            var id = Product.Value.Id;
+            var availabilityRequest = new ProductAvailabilityRequestDto
+            {
+                StartDate = StartDate.Value,
+                EndDate = EndDate.Value,
+                Quantity = Quantity.Value,
+                Id = Product.Value.Id
+            };
 
-            var request = new RestRequest("orders/checkOrders", Method.Post);
-            request.AddJsonBody(new { startDate, endDate, quantity, id });
+            string responseMessgae =  await _orderService.CheckProductAvailability(availabilityRequest);
+         
 
-            RestResponse<BaseMessageDto> response = Api.Client.Execute<BaseMessageDto>(request);
-
-            if(response.IsSuccessful)
+            if(string.IsNullOrEmpty(responseMessgae))
             {
                 Quantity.Error = null;
                 return true;
             }
-                
 
-            Quantity.Error = response.Data.Message;
+            Quantity.Error = responseMessgae;
             return false;
         }
 
-
-
         public void LoadProduct(int productId)
         {
-            if (productId <= 0)
-            {
-                Product.Error = "Server error!";
-                Product.Value = null;
-                return;
-            }
 
-            RestRequest request = new RestRequest($"products/show/{productId}");
-            var response = Api.Client.Execute<SingleProductDto>(request);
-            if (response.IsSuccessful)
+            var product = _productService.GetProduct(productId);
+            if (product != null)
             {
-
-                response.Data.Path = $"{Api.BaseImageUrl}{response.Data.Path}";
-                Product.Value = response.Data;
+                Product.Value = product;
                 Product.Error = null;
             }
             else
             {
                 Product.Error = "Server error!";
                 Product.Value = null;
-
             }
-
         }
+
     }
 }

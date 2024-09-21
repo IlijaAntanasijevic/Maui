@@ -17,7 +17,10 @@ public partial class ProductsPage : ContentPage
         var button = sender as Button;
         var productId = (int)button.CommandParameter;
         //await App.Current.MainPage.Navigation.PushAsync(new ProductPage(productId));
-        await Navigation.PushAsync(new NavigationPage(new ProductPage(productId)));
+        //await Navigation.PushAsync(new NavigationPage(new ProductPage(productId)));
+
+        var productPage = ActivatorUtilities.CreateInstance<ProductPage>(App.Services, productId);
+        await Navigation.PushAsync(productPage);
     }
 
     protected override void OnAppearing()

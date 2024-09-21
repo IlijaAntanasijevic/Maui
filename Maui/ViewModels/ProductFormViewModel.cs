@@ -1,4 +1,5 @@
 ﻿using Maui.Common;
+using Maui.DTO;
 using Maui.Validators;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,8 @@ namespace Maui.ViewModels
         public MProp<string> Details { get; set; } = new MProp<string>();
         public MProp<bool> ButtonEnabled { get; set; } = new MProp<bool>();
         public MProp<ImageSource> FileSource { get; set; } = new MProp<ImageSource>();
+        public MProp<SingleProductDto> Product { get; set; } = new MProp<SingleProductDto>();
+
 
         protected ProductFormViewModel()
         {

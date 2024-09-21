@@ -34,9 +34,9 @@
                          BackgroundColor="Gray"        
                          WidthRequest="250" 
                          HeightRequest="200"
-                               HorizontalOptions="Center"
-                               VerticalOptions="Center"
-                               CornerRadius="0">
+                         HorizontalOptions="Center"
+                         VerticalOptions="Center"
+                         CornerRadius="0">
 
                             <Grid ColumnDefinitions="*, *" 
                                   RowDefinitions="Auto, Auto, Auto" 
